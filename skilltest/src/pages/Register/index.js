@@ -4,9 +4,12 @@ export default function FormRegister() {
   return (
     <>
       <Header title="Cadastro de usuários" />
-      <div className="mt-10 sm:mt-10">
-        <div className="md:grid md:grid-cols-3 md:gap-6">
-          <div className="mt-5 md:mt-0 md:col-span-2">
+      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="px-4 py-6 sm:px-0">
+            <div className="flex flex-col">
+              <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                  <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
             <form action="#" method="POST">
               <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
@@ -124,6 +127,9 @@ export default function FormRegister() {
               </div>
             </form>
           </div>
+        </div>
+      </div>
+      </div>
         </div>
       </div>
     </>
