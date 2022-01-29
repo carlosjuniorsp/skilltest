@@ -1,10 +1,15 @@
-import './App.css';
-import Users from './components/Users/';
+import React from 'react';
+import "./App.css";
 
-function App() {
+import Routers from "./components/Route/";
+import Menu from "./pages/Menu";
+
+const  App = () => {
   return (
-    <Users></Users>
+    <>
+      <Menu />
+      <Routers />
+    </>
   );
 }
-
 export default App;
