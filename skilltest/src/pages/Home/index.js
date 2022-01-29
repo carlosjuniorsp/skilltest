@@ -2,40 +2,8 @@ import React, {useState, useEffect} from "react";
 import Header from "../../components/Header";
 import api from "../../services/api"
 
-const people = [
-  {
-    name: 'Carlos Junior',
-    age: '29',
-    cpf: '42976592047',
-    city: 'Suzano',
-    state: 'SP',
-  },
-  {
-    name: 'Carlos Junior',
-    age: '29',
-    cpf: '42976592047',
-    city: 'Suzano',
-    state: 'SP',
-  },
-  {
-    name: 'Carlos Junior',
-    age: '29',
-    cpf: '42976592047',
-    city: 'Suzano',
-    state: 'SP',
-  },
-  {
-    name: 'Carlos Junior',
-    age: '29',
-    cpf: '42976592047',
-    city: 'Suzano',
-    state: 'SP',
-  },
-]
-
 const Home = () => {
-    const [user, setUser] = useState();
-
+    const [user, setUser] = useState([]);
     useEffect(() => {
         api
         .get("/api/user-list")
@@ -93,32 +61,39 @@ const Home = () => {
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
-                        {people.map((person) => (
-                          <tr key={person.email}>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="flex items-center">
-                                <div className="text-sm font-medium text-gray-900">{person.name}</div>                              
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">{person.age}</div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">{person.cpf}</div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">{person.city}</div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">{person.state}</div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                              <a href="/" className="text-indigo-600 hover:text-indigo-900">
-                                Edit
-                              </a>
-                            </td>
-                          </tr>
-                        ))}
+                        {
+                          user.length >0 ?user.map(users => {
+                            return (
+                              <tr key={users.email}>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="flex items-center">
+                                    <div className="text-sm font-medium text-gray-900">{users.name}</div>                              
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">{users.age}</div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">{users.cpf}</div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">{users.city}</div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">{users.state}</div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">{users.maritalStatus}</div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                  <a href="/" className="text-indigo-600 hover:text-indigo-900">
+                                    Editar
+                                  </a>
+                                </td>
+                              </tr>
+                            )
+                          }) : "Carregando dados"
+                        }
                       </tbody>
                     </table>
                   </div>
