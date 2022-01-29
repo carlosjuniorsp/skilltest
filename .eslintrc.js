@@ -15,8 +15,12 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "prettier",
     ],
-    "rules": {
-    }
+    rules: {
+        "prettier/prettier": "error",
+        "react/jsx-filename-extension": ["warn", { extensions: [".jsx", ".js"] }],
+        "import/prefer-default-export": "off",
+    },
 }
