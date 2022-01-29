@@ -55,6 +55,12 @@ const Home = () => {
                           >
                             Estado
                           </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
+                          >
+                            Estado Civil
+                          </th>
                           <th scope="col" className="relative px-6 py-3">
                             <span className="sr-only">Edit</span>
                           </th>
@@ -83,7 +89,7 @@ const Home = () => {
                                   <div className="text-sm text-gray-900">{users.state}</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                  <div className="text-sm text-gray-900">{users.maritalStatus}</div>
+                                  <div className="text-sm text-gray-900">{users.marital_status}</div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                   <a href="/" className="text-indigo-600 hover:text-indigo-900">
