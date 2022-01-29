@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Header from "../../components/Header";
+import api from "../../services/api"
 
 const people = [
   {
@@ -33,6 +34,16 @@ const people = [
 ]
 
 const Home = () => {
+    const [user, setUser] = useState();
+
+    useEffect(() => {
+        api
+        .get("/api/user-list")
+        .then((response) => setUser(response.data))
+        .catch((err) => {
+            console.error("ops! ocorreu um erro" + err);
+        });
+    }, []);
   return (
     <>
       <Header title="Usuários" />
