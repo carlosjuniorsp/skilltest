@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Header from "../../components/Header";
 import api from "../../services/api"
+import Modal from "../../components/Users/edit";
 
 const Home = () => {
     const [user, setUser] = useState([]);
@@ -61,9 +62,12 @@ const Home = () => {
                           >
                             Estado Civil
                           </th>
-                          <th scope="col" className="relative px-6 py-3">
-                            <span className="sr-only">Edit</span>
-                          </th>
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
+                          >                        
+                         Ações
+                          </th>                     
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
@@ -91,11 +95,17 @@ const Home = () => {
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   <div className="text-sm text-gray-900">{users.marital_status}</div>
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">
                                   <a href="/" className="text-indigo-600 hover:text-indigo-900">
                                     Editar
                                   </a>
-                                </td>
+                                  &nbsp; | &nbsp;
+                                  <a href="/" className="text-indigo-600 hover:text-indigo-900">
+                                    Excluir
+                                  </a>
+                                  </div>
+                                </td>                             
                               </tr>
                             )
                           }) : "Carregando dados"
