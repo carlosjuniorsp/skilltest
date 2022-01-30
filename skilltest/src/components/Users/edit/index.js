@@ -1,6 +1,7 @@
-import {React, Fragment, useRef, useState } from "react";
+import { React, Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
+import PropTypes from "prop-types";
 
 export default function Modal(props) {
   const status = props.status;
@@ -95,3 +96,7 @@ export default function Modal(props) {
     </Transition.Root>
   );
 }
+
+Modal.propTypes = {
+  status: PropTypes.bool,
+};

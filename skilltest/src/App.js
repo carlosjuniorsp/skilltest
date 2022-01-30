@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import "./App.css";
 
 import Routers from "./components/Route/";
 import Menu from "./pages/Menu";
 
-const  App = () => {
+const App = () => {
   return (
     <>
       <Menu />
       <Routers />
     </>
   );
-}
+};
 export default App;
