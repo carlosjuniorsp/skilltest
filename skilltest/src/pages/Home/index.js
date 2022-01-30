@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import api from "../../services/api";
-import Modal from "../../components/Users/edit";
+//import Modal from "../../components/Users/edit";
 
 const Home = () => {
   const [user, setUser] = useState([]);
