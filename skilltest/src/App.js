@@ -1,6 +1,4 @@
 import React from "react";
-import "./App.css";
-
 import Routers from "./components/Route/";
 import Menu from "./pages/Menu";
 

@@ -14,6 +14,15 @@ const Home = () => {
         console.error("ops! ocorreu um erro" + err);
       });
   }, []);
+
+  function deleteUser(id) {
+    api
+      .delete("/api/user-delete/" + id)
+      .then(() => console.log("Deletado"))
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+  }
   return (
     <>
       <Header title="Usuários" />
@@ -72,63 +81,67 @@ const Home = () => {
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
-                        {user.length > 0
-                          ? user.map((users) => {
-                              return (
-                                <tr key={users.email}>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="flex items-center">
-                                      <div className="text-sm font-medium text-gray-900">
-                                        {users.name}
-                                      </div>
+                        {user.length > 0 ? (
+                          user.map((users) => {
+                            return (
+                              <tr key={users.email}>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="flex items-center">
+                                    <div className="text-sm font-medium text-gray-900">
+                                      {users.name}
                                     </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {users.age}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {users.cpf}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {users.city}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {users.state}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {users.marital_status}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      <a
-                                        href="/"
-                                        className="text-indigo-600 hover:text-indigo-900"
-                                      >
-                                        Editar
-                                      </a>
-                                      &nbsp; | &nbsp;
-                                      <a
-                                        href="/"
-                                        className="text-indigo-600 hover:text-indigo-900"
-                                      >
-                                        Excluir
-                                      </a>
-                                    </div>
-                                  </td>
-                                </tr>
-                              );
-                            })
-                          : "Carregando dados"}
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">
+                                    {users.age}
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">
+                                    {users.cpf}
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">
+                                    {users.city}
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">
+                                    {users.state}
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">
+                                    {users.marital_status}
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  <div className="text-sm text-gray-900">
+                                    <a
+                                      href="/"
+                                      className="text-indigo-600 hover:text-indigo-900"
+                                    >
+                                      Editar
+                                    </a>
+                                    &nbsp; | &nbsp;
+                                    <a
+                                      onClick={() => deleteUser(users.id)}
+                                      className="text-indigo-600 hover:text-indigo-900"
+                                    >
+                                      Excluir
+                                    </a>
+                                  </div>
+                                </td>
+                              </tr>
+                            );
+                          })
+                        ) : (
+                          <h2 className="text-gray-500 px-6 py-3">
+                            Não temos nenhum registro para exibir
+                          </h2>
+                        )}
                       </tbody>
                     </table>
                   </div>

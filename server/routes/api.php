@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResources([
-    'user-list' => 'App\Http\Controllers\ClientController'
-]);
+Route::get('user-list','App\Http\Controllers\ClientController@index');
+Route::any('user-delete/{id}', 'App\Http\Controllers\ClientController@destroy');
