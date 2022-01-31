@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from "react";
 import Header from "../../components/Header";
-//import api from "../../services/api";
 import PropTypes from "prop-types";
 import { useParams } from "react-router";
 import ReactLoading from "react-loading";
@@ -10,14 +9,13 @@ import api from "../../services/api";
 export default function Form() {
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
-  const userId = useParams();
+  const params = useParams();
   function userList(userId) {
     api
       .get("/api/user-list/" + userId)
       .then((response) => {
         setLoading(false);
         setUsers(response.data);
-        console.log(response.data);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -25,11 +23,15 @@ export default function Form() {
   }
   useEffect(() => {
     setLoading(true);
-    userList(userId.id);
+    userList(params.id);
   }, []);
   return (
     <>
-      <Header title="Cadastro de usuários" />
+      <Header
+        title={
+          params.edit == "edit" ? "Edição de usuário" : "Cadastro de usuários"
+        }
+      />
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <div className="flex flex-col">
@@ -181,5 +183,4 @@ export default function Form() {
 }
 Form.propTypes = {
   action: PropTypes.string,
-  users: PropTypes.object,
 };

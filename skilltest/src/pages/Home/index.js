@@ -144,7 +144,7 @@ const Home = () => {
                                   <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-900">
                                       <a
-                                        href={"/form/" + users.id}
+                                        href={"/form/edit/" + users.id}
                                         className="text-indigo-600 hover:text-indigo-900"
                                       >
                                         Editar

@@ -10,7 +10,7 @@ export default function Routers() {
       <Routes>
         <Route element={<Home />} path="/" exact />
         <Route element={<Form />} path="/register" />
-        <Route element={<Form />} path="/form/:id" action="edit" />
+        <Route element={<Form />} path="/form/:edit/:id" />
       </Routes>
     </BrowserRouter>
   );
