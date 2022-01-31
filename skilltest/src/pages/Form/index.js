@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import ReactLoading from "react-loading";
 import { list } from "../../components/Loading";
 import api from "../../services/api";
+//import { cpfMask } from "../../components/Mask";
 
 export default function Form() {
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,7 @@ export default function Form() {
       .then((response) => {
         setLoading(false);
         setUsers(response.data);
+        console.log(response.data);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -73,9 +75,10 @@ export default function Form() {
                                   CPF
                                 </label>
                                 <input
-                                  type="number"
+                                  type="text"
                                   name="cpf"
-                                  value={users.cpf}
+                                  placeholder={users.cpf}
+                                  maxLength="14"
                                   id="cpf"
                                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 />
@@ -106,14 +109,18 @@ export default function Form() {
                                 </label>
                                 <select
                                   id="marital-status"
-                                  value={users.material_status}
+                                  value={users.marital_status}
                                   name="marital-status"
                                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
-                                  <option>Casado(a)</option>
-                                  <option>Solteiro(a)</option>
-                                  <option>Divorciado(a)</option>
-                                  <option>Viúvo(a)</option>
+                                  <option value="Casado(a)">Casado(a)</option>
+                                  <option value="Solteiro(a)">
+                                    Solteiro(a)
+                                  </option>
+                                  <option value="Divorciado(a)">
+                                    Divorciado(a)
+                                  </option>
+                                  <option value="Viúvo(a)">Viúvo(a)</option>
                                 </select>
                               </div>
 
@@ -130,9 +137,9 @@ export default function Form() {
                                   value={users.city}
                                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
-                                  <option>Suzano</option>
-                                  <option>Poá</option>
-                                  <option>Mogi</option>
+                                  <option value="Suzano">Suzano</option>
+                                  <option value="Poá">Poá</option>
+                                  <option value="Mogi">Mogi</option>
                                 </select>
                               </div>
 
