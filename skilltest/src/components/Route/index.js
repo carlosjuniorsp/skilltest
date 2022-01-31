@@ -2,14 +2,15 @@ import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 
 import Home from "../../pages/Home";
-import Register from "../../pages/Register";
+import Form from "../../pages/Form";
 
 export default function Routers() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Home />} path="/" exact />
-        <Route element={<Register />} path="/register" />
+        <Route element={<Form />} path="/register" />
+        <Route element={<Form />} path="/form/:id" action="edit" />
       </Routes>
     </BrowserRouter>
   );

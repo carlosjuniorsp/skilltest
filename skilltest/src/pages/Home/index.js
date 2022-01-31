@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import Header from "../../components/Header";
 import api from "../../services/api";
 import ReactLoading from "react-loading";
@@ -145,7 +144,7 @@ const Home = () => {
                                   <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-900">
                                       <a
-                                        href="/"
+                                        href={"/form/" + users.id}
                                         className="text-indigo-600 hover:text-indigo-900"
                                       >
                                         Editar

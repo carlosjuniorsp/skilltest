@@ -12,8 +12,10 @@ class ClientController extends Controller
         return Client::all();
     }
 
-    public function show()
+    public function show($id)
     {
+        $user = Client::findOrFail($id);
+        return $user;
     }
 
     public function destroy($id)
