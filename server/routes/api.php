@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('user-list','App\Http\Controllers\ClientController@index');
 Route::get('user-list/{id}', 'App\Http\Controllers\ClientController@show');
 Route::delete('user-delete/{id}', 'App\Http\Controllers\ClientController@destroy');
+Route::post('user-update/{id}', 'App\Http\Controllers\ClientController@update');

@@ -8,25 +8,44 @@ import api from "../../services/api";
 //import { cpfMask } from "../../components/Mask";
 
 export default function Form() {
-  const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState([]);
   const params = useParams();
-  function userList(userId) {
-    api
-      .get("/api/user-list/" + userId)
-      .then((response) => {
-        setLoading(false);
-        setUsers(response.data);
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
-  }
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({
+    age: "",
+    city: "",
+    cpf: "",
+    id: "",
+    marital_status: "",
+    name: "",
+    state: "",
+  });
   useEffect(() => {
     setLoading(true);
-    userList(params.id);
+    api
+      .get("/api/user-list/" + params.id)
+      .then((response) => {
+        setLoading(false);
+        console.log(response.data);
+        setForm(response.data);
+      })
+      .catch((err) => {
+        console.error("ops! ocorreu um erro: " + err);
+      });
   }, []);
+  function sendForm(e) {
+    //setLoading(true);
+    e.preventDefault();
+    api
+      .post("/api/user-update/" + params.id, {
+        form,
+      })
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("ops! ocorreu um erro: " + err);
+      });
+  }
   return (
     <>
       <Header
@@ -44,9 +63,13 @@ export default function Form() {
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                       <ReactLoading type={list.spin} color="#4338ca" />
                     </div>
-                  ) : users ? (
+                  ) : form ? (
                     <>
-                      <form action="#" method="POST">
+                      <form
+                        action="#"
+                        method="POST"
+                        onSubmit={(e) => sendForm(e)}
+                      >
                         <div className="shadow overflow-hidden sm:rounded-md">
                           <div className="px-4 py-5 bg-white sm:p-6">
                             <div className="grid grid-cols-12 gap-6">
@@ -61,7 +84,13 @@ export default function Form() {
                                   type="text"
                                   name="first-name"
                                   id="first-name"
-                                  value={users.name}
+                                  value={form.name || ""}
+                                  onChange={({ currentTarget: { value } }) =>
+                                    setForm((prevState) => ({
+                                      ...prevState,
+                                      name: value,
+                                    }))
+                                  }
                                   autoComplete="given-name"
                                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 />
@@ -77,7 +106,13 @@ export default function Form() {
                                 <input
                                   type="text"
                                   name="cpf"
-                                  placeholder={users.cpf}
+                                  value={form.cpf || ""}
+                                  onChange={(e) =>
+                                    setForm((prevState) => ({
+                                      ...prevState,
+                                      cpf: e.target.value,
+                                    }))
+                                  }
                                   maxLength="14"
                                   id="cpf"
                                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -94,7 +129,13 @@ export default function Form() {
                                 <input
                                   type="number"
                                   name="age"
-                                  value={users.age}
+                                  value={form.age}
+                                  onChange={(e) =>
+                                    setForm((prevState) => ({
+                                      ...prevState,
+                                      age: e.target.value,
+                                    }))
+                                  }
                                   id="age"
                                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 />
@@ -109,7 +150,13 @@ export default function Form() {
                                 </label>
                                 <select
                                   id="marital-status"
-                                  value={users.marital_status}
+                                  value={form.marital_status}
+                                  onChange={(e) =>
+                                    setForm((prevState) => ({
+                                      ...prevState,
+                                      marital_status: e.target.value,
+                                    }))
+                                  }
                                   name="marital-status"
                                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
@@ -134,7 +181,13 @@ export default function Form() {
                                 <select
                                   id="city"
                                   name="city"
-                                  value={users.city}
+                                  value={form.city}
+                                  onChange={(e) =>
+                                    setForm((prevState) => ({
+                                      ...prevState,
+                                      city: e.target.value,
+                                    }))
+                                  }
                                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                   <option value="Suzano">Suzano</option>
@@ -153,7 +206,13 @@ export default function Form() {
                                 <select
                                   id="state"
                                   name="state"
-                                  value={users.state}
+                                  value={form.state}
+                                  onChange={(e) =>
+                                    setForm((prevState) => ({
+                                      ...prevState,
+                                      state: e.target.value,
+                                    }))
+                                  }
                                   className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 >
                                   <option>SP</option>
