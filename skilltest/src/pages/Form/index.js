@@ -25,7 +25,6 @@ export default function Form() {
       .get("/api/user-list/" + params.id)
       .then((response) => {
         setLoading(false);
-        console.log(response.data);
         setForm(response.data.data);
       })
       .catch((err) => {
@@ -33,7 +32,7 @@ export default function Form() {
       });
   }, []);
   function sendForm(e) {
-    //setLoading(true);
+    setLoading(true);
     e.preventDefault();
     api
       .post("/api/user-update/" + params.id, {
