@@ -10,26 +10,21 @@ import api from "../../services/api";
 export default function Form() {
   const params = useParams();
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({
-    age: "",
-    city: "",
-    cpf: "",
-    id: "",
-    marital_status: "",
-    name: "",
-    state: "",
-  });
-  useEffect(() => {
-    setLoading(true);
-    api
+  const [form, setForm] = useState({});
+  async function getUserList() {
+    await api
       .get("/api/user-list/" + params.id)
       .then((response) => {
+        setForm(response.data);
         setLoading(false);
-        setForm(response.data.data);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro: " + err);
       });
+  }
+  useEffect(() => {
+    setLoading(true);
+    getUserList();
   }, []);
   function sendForm(e) {
     setLoading(true);
@@ -62,7 +57,7 @@ export default function Form() {
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                       <ReactLoading type={list.spin} color="#4338ca" />
                     </div>
-                  ) : form.lenght > 0 ? (
+                  ) : form ? (
                     <>
                       <form
                         action="#"
