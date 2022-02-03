@@ -7,10 +7,9 @@ use Exception;
 class ClientException extends Exception
 {
     /**
-     * @param string $erro
      * @return JsonResponse|Response|\Symfony\Component\HttpFoundation\Response
      */
-    public function render(string $erro)
+    public function render()
     {
         return response()->json([
             'status' => '404',
