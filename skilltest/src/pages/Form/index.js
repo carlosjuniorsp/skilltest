@@ -26,7 +26,7 @@ export default function Form() {
       .then((response) => {
         setLoading(false);
         console.log(response.data);
-        setForm(response.data);
+        setForm(response.data.data);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro: " + err);
@@ -63,7 +63,7 @@ export default function Form() {
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                       <ReactLoading type={list.spin} color="#4338ca" />
                     </div>
-                  ) : form ? (
+                  ) : form.lenght > 0 ? (
                     <>
                       <form
                         action="#"

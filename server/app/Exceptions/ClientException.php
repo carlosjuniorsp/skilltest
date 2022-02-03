@@ -13,8 +13,9 @@ class ClientException extends Exception
     public function render(string $erro)
     {
         return response()->json([
-            'status' => 'failed',
-            'error' => "Erro"
+            'status' => '404',
+            'error' => "Dados não encontrados",
+            'data' => [],
         ]);
     }
 }
