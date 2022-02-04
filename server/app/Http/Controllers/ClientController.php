@@ -17,12 +17,12 @@ class ClientController extends Controller
     {
         try {
             $user = Client::find($id);
-            if(!$user) {
-                throw new ClientException("ERro ao buscar um usuário");
-               }
-               return $user;
+            if (!$user) {
+                throw new ClientException("Erro ao carregar os dados");
+            }
+            return $user;
         } catch (ClientException $err) {
-            throw new ClientException("Erro ao buscar o usuário");
+            throw new ClientException($err->getMessage());
         }
     }
 
@@ -36,8 +36,8 @@ class ClientController extends Controller
     {
         try {
             Client::findOrFail($id);
-        } catch (UserException $th) {
-            return "Não encontramos nada". $th;
+        } catch (ClientException $th) {
+            return "Não encontramos nada" . $th;
         }
         //$data = $request->all();
     }

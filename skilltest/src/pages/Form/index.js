@@ -15,6 +15,7 @@ export default function Form() {
     await api
       .get("/api/user-list/" + params.id)
       .then((response) => {
+        console.log(response.data);
         setForm(response.data);
         setLoading(false);
       })
