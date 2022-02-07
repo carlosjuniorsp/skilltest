@@ -8,19 +8,19 @@ const Home = () => {
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [idUser, setIdUser] = useState(0);
-  const [user, setUser] = useState([]);
+  const [business, setBusiness] = useState([]);
 
   useEffect(() => {
-    listUser();
+    listBusiness();
   }, []);
 
-  function listUser() {
+  function listBusiness() {
     setLoading(true);
     api
-      .get("/api/user-list")
+      .get("/api/business-list")
       .then((response) => {
         setLoading(false);
-        setUser(response.data);
+        setBusiness(response.data);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -35,7 +35,7 @@ const Home = () => {
       })
       .then(() => {
         setLoading(false);
-        listUser();
+        listBusiness();
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -44,7 +44,7 @@ const Home = () => {
 
   return (
     <>
-      <Header title="Usuários" />
+      <Header title="Empresas cadastradas" />
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
@@ -64,37 +64,25 @@ const Home = () => {
                               scope="col"
                               className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                             >
-                              Nome
+                              Nome da empresa
                             </th>
                             <th
                               scope="col"
                               className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                             >
-                              Idade
+                              Telefone
                             </th>
                             <th
                               scope="col"
                               className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                             >
-                              CPF
+                              Description
                             </th>
                             <th
                               scope="col"
                               className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
                             >
-                              Cidade
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
-                            >
-                              Estado
-                            </th>
-                            <th
-                              scope="col"
-                              className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider"
-                            >
-                              Estado Civil
+                              Url
                             </th>
                             <th
                               scope="col"
@@ -105,46 +93,36 @@ const Home = () => {
                           </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                          {user.length > 0 ? (
-                            user.map((users) => {
+                          {business.length > 0 ? (
+                            business.map((data) => {
                               return (
-                                <tr key={users.email}>
+                                <tr key={data.email}>
                                   <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="flex items-center">
                                       <div className="text-sm font-medium text-gray-900">
-                                        {users.name}
+                                        {data.business}
                                       </div>
                                     </div>
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-900">
-                                      {users.age}
+                                      {data.phone}
                                     </div>
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-900">
-                                      {users.cpf}
+                                      {data.description}
                                     </div>
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-900">
-                                      {users.city}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {users.state}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {users.marital_status}
+                                      {data.url}
                                     </div>
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap">
                                     <div className="text-sm text-gray-900">
                                       <a
-                                        href={"/form/edit/" + users.id}
+                                        href={"/form/edit/" + data.id}
                                         className="text-indigo-600 hover:text-indigo-900"
                                       >
                                         Editar
@@ -153,7 +131,7 @@ const Home = () => {
                                       <a
                                         onClick={() => {
                                           setOpenModal(true);
-                                          setIdUser(users.id);
+                                          setIdUser(data.id);
                                         }}
                                         className="text-indigo-600 hover:text-indigo-900"
                                       >

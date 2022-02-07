@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('user-list','App\Http\Controllers\ClientController@index');
-Route::get('user-list/{id}', 'App\Http\Controllers\ClientController@show');
-Route::delete('user-delete/{id}', 'App\Http\Controllers\ClientController@destroy');
-Route::post('user-update/{id}', 'App\Http\Controllers\ClientController@update');
+Route::get('business-list','App\Http\Controllers\BusinessController@index');
+Route::get('business-list/{id}', 'App\Http\Controllers\BusinessController@show');
+Route::delete('business-delete/{id}', 'App\Http\Controllers\BusinessController@destroy');
+Route::post('business-update/{id}', 'App\Http\Controllers\BusinessController@update');

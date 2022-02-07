@@ -11,41 +11,40 @@ export default function Form() {
   const params = useParams();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({});
-  async function getUserList() {
+  async function getBusinessList() {
     await api
-      .get("/api/user-list/" + params.id)
+      .get("/api/business-list/" + params.id)
       .then((response) => {
-        console.log(response.data);
         setForm(response.data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("ops! ocorreu um erro: " + err);
+        console.error(err.response.data.error);
       });
   }
-  useEffect(() => {
-    setLoading(true);
-    getUserList();
-  }, []);
   function sendForm(e) {
     setLoading(true);
     e.preventDefault();
     api
-      .post("/api/user-update/" + params.id, {
+      .post("/api/business-update/" + params.id, {
         form,
       })
       .then(() => {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("ops! ocorreu um erro: " + err);
+        console.error(err.response.data.error);
       });
   }
+  useEffect(() => {
+    setLoading(true);
+    getBusinessList();
+  }, []);
   return (
     <>
       <Header
         title={
-          params.edit == "edit" ? "Edição de usuário" : "Cadastro de usuários"
+          params.edit == "edit" ? "Edição da empresa" : "Cadastro de empresa"
         }
       />
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -66,24 +65,24 @@ export default function Form() {
                         onSubmit={(e) => sendForm(e)}
                       >
                         <div className="shadow overflow-hidden sm:rounded-md">
-                          <div className="px-4 py-5 bg-white sm:p-6">
-                            <div className="grid grid-cols-12 gap-6">
+                          <div className="px-4 py-10 bg-white sm:p-6">
+                            <div className="grid grid-cols-1">
                               <div className="col-span-6 sm:col-span-5">
                                 <label
-                                  htmlFor="first-name"
+                                  htmlFor="business"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Nome
+                                  Empresa
                                 </label>
                                 <input
                                   type="text"
-                                  name="first-name"
-                                  id="first-name"
-                                  value={form.name || ""}
+                                  name="business"
+                                  id="business"
+                                  value={form.business || ""}
                                   onChange={({ currentTarget: { value } }) =>
                                     setForm((prevState) => ({
                                       ...prevState,
-                                      name: value,
+                                      business: value,
                                     }))
                                   }
                                   autoComplete="given-name"
@@ -93,127 +92,70 @@ export default function Form() {
 
                               <div className="col-span-6 sm:col-span-3">
                                 <label
-                                  htmlFor="cpf"
+                                  htmlFor="phone"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  CPF
+                                  Telefone
                                 </label>
                                 <input
                                   type="text"
-                                  name="cpf"
-                                  value={form.cpf || ""}
+                                  name="phone"
+                                  value={form.phone || ""}
                                   onChange={(e) =>
                                     setForm((prevState) => ({
                                       ...prevState,
-                                      cpf: e.target.value,
+                                      phone: e.target.value,
                                     }))
                                   }
                                   maxLength="14"
-                                  id="cpf"
+                                  id="telefone"
                                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 />
                               </div>
 
                               <div className="col-span-6 sm:col-span-3">
                                 <label
-                                  htmlFor="age"
+                                  htmlFor="url"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Idade
+                                  Url
                                 </label>
                                 <input
-                                  type="number"
-                                  name="age"
-                                  value={form.age}
+                                  type="text"
+                                  name="url"
+                                  disabled
+                                  value={form.url}
                                   onChange={(e) =>
                                     setForm((prevState) => ({
                                       ...prevState,
-                                      age: e.target.value,
+                                      url: e.target.value,
                                     }))
                                   }
                                   id="age"
                                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                                 />
                               </div>
-
                               <div className="col-span-6 sm:col-span-3">
                                 <label
-                                  htmlFor="marital-status"
+                                  htmlFor="description"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Estado civil
+                                  Mensagem automática do link
                                 </label>
-                                <select
-                                  id="marital-status"
-                                  value={form.marital_status}
+                                <textarea
+                                  type="text"
+                                  name="description"
+                                  placeholder="Olá, gostaria de um orçamento!"
+                                  value={form.description}
                                   onChange={(e) =>
                                     setForm((prevState) => ({
                                       ...prevState,
-                                      marital_status: e.target.value,
+                                      description: e.target.value,
                                     }))
                                   }
-                                  name="marital-status"
-                                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                >
-                                  <option value="Casado(a)">Casado(a)</option>
-                                  <option value="Solteiro(a)">
-                                    Solteiro(a)
-                                  </option>
-                                  <option value="Divorciado(a)">
-                                    Divorciado(a)
-                                  </option>
-                                  <option value="Viúvo(a)">Viúvo(a)</option>
-                                </select>
-                              </div>
-
-                              <div className="col-span-6 sm:col-span-3">
-                                <label
-                                  htmlFor="country"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Cidade
-                                </label>
-                                <select
-                                  id="city"
-                                  name="city"
-                                  value={form.city}
-                                  onChange={(e) =>
-                                    setForm((prevState) => ({
-                                      ...prevState,
-                                      city: e.target.value,
-                                    }))
-                                  }
-                                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                >
-                                  <option value="Suzano">Suzano</option>
-                                  <option value="Poá">Poá</option>
-                                  <option value="Mogi">Mogi</option>
-                                </select>
-                              </div>
-
-                              <div className="col-span-6 sm:col-span-3">
-                                <label
-                                  htmlFor="state"
-                                  className="block text-sm font-medium text-gray-700"
-                                >
-                                  Estado
-                                </label>
-                                <select
-                                  id="state"
-                                  name="state"
-                                  value={form.state}
-                                  onChange={(e) =>
-                                    setForm((prevState) => ({
-                                      ...prevState,
-                                      state: e.target.value,
-                                    }))
-                                  }
-                                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                >
-                                  <option>SP</option>
-                                  <option>MG</option>
-                                  <option>RJ</option>
-                                </select>
+                                  id="age"
+                                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                ></textarea>
                               </div>
                             </div>
                           </div>

@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class ClientException extends Exception
+class BusinessException extends Exception
 {
     /**
      * @return JsonResponse|Response|\Symfony\Component\HttpFoundation\Response
